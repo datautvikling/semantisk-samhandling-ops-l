@@ -43,6 +43,28 @@ Should we model facilities and subfacilities as events?
 
 Registration with one facility confirmed and the other not yet. that the movement event can convey the new facility.
 
+FacilityOwnershipChangeEvent
+- old org, 
+- new org
+
+NewFacilityEvent
+- owning org
+
+FacilityRemovedEvent
+
+FacilityLocationChangeEvent
+
+AnimalIntoFacilityEvent
+
+AnimalOutOfFacilityEvent
+
+Controlled Vocabulary for Facility Type
+
+Controlled Vocabulary for Transfer Reason
+
+FacilityPartOfFacilityChangeEvent
+
+
 
 ## Regulatory demands
 
@@ -66,5 +88,13 @@ Questions: What are the entities involved?
 - organisation (how much detail do we need here?)
 - animal
 - movement event
+
+
+thing
+
+location : thing
+
+facility : location
+
 
 
