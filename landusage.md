@@ -31,7 +31,7 @@ To support history and tracablity of evolving land usage the model will support 
 - LandParcelCreationEvent
 - LandParcelRetirementEvent
 - LandParcelOwnershipChangeEvent
-- LandParcelNamesChangeEvent
+- LandParcelNameChangeEvent
 
 Parcels of land are considered to be immutable. Changes to the land parcel will be modelled as new land parcels. identifiers do not change.
 

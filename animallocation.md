@@ -27,7 +27,7 @@ The data model will be based on the following core entities:
 
 - Animal
 
-- Herd
+- Herd (Animal Group)
 
 - Location (geospatial)
     - Processing Facility
@@ -54,9 +54,6 @@ The data model will be based on the following core entities:
 - HerdRemovalEvent
 - HerdResponsibleChangeEvent
 - AnimalTaggingEvent
-
-At a high level, the farmer would think of the following events:
-
 
 They are supported with the following controlled vocabularies:
 

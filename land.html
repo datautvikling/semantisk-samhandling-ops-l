@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>Livestock Agriculture Information Model 1.0</title>
+    <title>Land Usage Information Model 1.0</title>
     <script
       src="https://www.w3.org/Tools/respec/respec-w3c"
       class="remove"
@@ -16,7 +16,7 @@
         shortName: "iso-standard-short-name",
         
         // Title and reference specific to ISO
-        title: "Livestock Agriculture Information Model 1.0",
+        title: "Land Usage Information Model 1.0",
         isoReference: "ISO/IEC 12345-6:2024",  // Customize with the correct ISO reference
         
         // Editor information
@@ -37,7 +37,7 @@
         logos: [],  // Use empty array to remove default logos
         
         // Optionally link to the draft
-        edDraftURI: "https://github.com/datautvikling/Semantisk-samhandling-OPS-L/laim.html",
+        edDraftURI: "https://github.com/datautvikling/Semantisk-samhandling-OPS-L/land.html",
         
         // ISO-specific options you want to include in your Status of This Document (SOTD)
         sotdText: `
@@ -52,14 +52,15 @@
   </head>
   <body>
     <section id="abstract">
-      <p>A logical and semantic information model that describes the core entities, relationships and events for livestock.</p>
+      <p>A logical and semantic information model that describes the core entities, relationships and events for land management.</p>
     </section>
-    <section id="sotd">
 
+    <section id="sotd">
     </section>
+
     <section class="informative">
       <h2>Introduction</h2>
-      <p>Defining a semantic information model with concrete syntax based on international standards will improve the quality and timeliness of data exchange in agriculture. These improvements in inter-system communication leads to lower costs of integration, solutions of higher accuracy and the opportunity to create more value for farmers and industry organisations.</p>
+      <p>Defining a semantic information model with concrete syntax based on international standards will improve the quality and timeliness of data exchange in agriculture. These improvements in inter-system communication leads to lower costs of integration, solutions of higher accuracy and the opportunity to create more value for farmers and industry partners.</p>
       <aside class="note" title="background">
         <p>Other industries have benefited from this approach and this initiative is an attempt to bring these concepts to agriculture.</p>
       </aside>
@@ -68,32 +69,15 @@
     <section>
       <h2>Guide to the specification</h2>
       <p>
-          This specification uses a common approach to modelling and representing different aspects of livestock agriculture. The specification is divided into the following sections, Animal Location Ownership and Respsonibility, Animal Feeding, Animal Health, Animal Reproduction, Animal Slaughter, Animal Production Events. Each of these sections defines a set of events related to the specific aspect of livestock agriculture. These events utilise common entities that are defined in the Common Entities section. Each section defines events as a logical information model, with text and diagrams, and then provides the RDF and SHACL representation of the event. Controlled vocabularies are used to define some of the values of the properties belonging to events. These are defined in the section called Common Vocabulary.
+          This specification is uses a common approach to modelling and representing different aspects of livestock agriculture. The specification is divided into the following sections, Animal Sale & Purchase, Animal Feeding, Animal Health, Animal Reproduction, Animal Slaughter, Animal Milking Events. Each of these sections defines a set of events related to the specific aspect of livestock agriculture. These events utilise core entities that are defined in the Core Entities section. Each section defines the event as a logical information model, with text and diagrams, and then provides the RDF and SHACL representation of the event. Controlled vocabularies are used to define some of the values of the properties belonging to entities and events. These are also defined in a common section called vocabulary.
       </p>
     </section>
 
     <section>
       <h2>Common Entities</h2>
       <p>
-        The following common entities are used in the specification and definition of events.
+        The following common entities are used in the specification.
       </p>
-      <section id="base-entity-class">
-        <h3>Base Entity</h3>
-        <p>
-          The base entity is the root class for all entities in the model. It has meta properties that enable it to be used as part of the generic data sharing API.
-        </p>
-        <section id="base-entity-class-properties">
-          <h4>Properties</h4>
-          <ul>
-            <li>id (URI) - a unique system identifier</li>
-            <li>external identifiers ([]URI) - 1 or more identifiers for the same entity</li>
-            <li>deleted (boolean) - indicates if this entity has been deleted</li>
-            <li>modified (DateTime) - date and time the entity was modified, full time zone representation</li>
-            <li>Provinance (Map) - a set of sub proopeties that contains: properties, signer, hash - for use in distributed verification of data</li>
-          </ul>
-        </section>
-      </section>
-
       <section id="commercial-organisation-class">
         <h3>Commercial Organisation</h3>
         <p>
@@ -236,8 +220,7 @@
     </section>
 
     <section>
-      <h2>Animal Location, Responsility and Transer Events</h2>
-      
+      <h2>Animal Transfer Events</h2>
       <section id="animal-into-herd-event">
         <h3>Animal Into Herd Event</h3>
         <p>
@@ -253,143 +236,10 @@
             <li>from - optional resource to indicate where.</li>
           </ul>
         </section>
-      </section>
-
-      <section id="animal-out-of-herd-event">
-        <h3>Out Of Herd Event</h3>
-        <p>An event that moves an animal out of a herd.</p>
-        <section id="out-of-herd-event-properties">
-          <h4>Properties</h4>
-          <ul>
-            <li>animal - reference to Animal</li>
-            <li>herd - reference to Animal Group</li>
-            <li>date - date the animal left the herd</li>
-            <li>reason - out of herd reason</li>
-            <li>to - optional resource for the animal's destination</li>
-          </ul>
-        </section>
-      </section>
-
-      <section id="animal-into-location-event">
-        <h3>Animal Into Location Event</h3>
-        <p>An event that moves an animal into a location.</p>
-        <section id="animal-into-location-event-properties">
-          <h4>Properties</h4>
-          <ul>
-            <li>animal - reference to Animal</li>
-            <li>location - reference to Location</li>
-            <li>date - date of movement</li>
-            <li>reason - reason for movement</li>
-            <li>from - optional origin</li>
-          </ul>
-        </section>
-      </section>
-
-      <section id="animal-out-of-location-event">
-        <h3>Animal Out Of Location Event</h3>
-        <p>An event that moves an animal out of a location.</p>
-        <section id="animal-out-of-location-event-properties">
-          <h4>Properties</h4>
-          <ul>
-            <li>animal - reference to Animal</li>
-            <li>location - reference to Location</li>
-            <li>date - date the animal left the location</li>
-            <li>reason - out of location reason</li>
-          </ul>
-        </section>
-      </section>
-
-      <section id="location-registration-event">
-        <h3>Location Registration Event</h3>
-        <p>An event registering a new location.</p>
-        <section id="location-registration-event-properties">
-          <h4>Properties</h4>
-          <ul>
-            <li>location - reference to Location</li>
-            <li>date - date of registration</li>
-            <li>reason - purpose of registration</li>
-          </ul>
-        </section>
-      </section>
-
-      <section id="location-change-event">
-        <h3>Location Change Event</h3>
-        <p>An event indicating a change in a location.</p>
-        <section id="location-change-event-properties">
-          <h4>Properties</h4>
-          <ul>
-            <li>location - reference to Location</li>
-            <li>date - date of change</li>
-            <li>details - description of the change</li>
-          </ul>
-        </section>
-      </section>
-
-      <section id="herd-ownership-change-event">
-        <h3>Herd Ownership Change Event</h3>
-        <p>An event that changes the ownership of a herd.</p>
-        <section id="herd-ownership-change-event-properties">
-          <h4>Properties</h4>
-          <ul>
-            <li>herd - reference to Animal Group</li>
-            <li>date - date of change</li>
-            <li>oldOwner - reference to the previous owner</li>
-            <li>newOwner - reference to the new owner</li>
-          </ul>
-        </section>
-      </section>
-
-      <section id="herd-registration-event">
-        <h3>Herd Registration Event</h3>
-        <p>An event that registers a new herd.</p>
-        <section id="herd-registration-event-properties">
-          <h4>Properties</h4>
-          <ul>
-            <li>herd - reference to Animal Group</li>
-            <li>date - date of registration</li>
-            <li>reason - purpose of registration</li>
-          </ul>
-        </section>
-      </section>
-
-      <section id="herd-removal-event">
-        <h3>Herd Removal Event</h3>
-        <p>An event that removes or deactivates a herd.</p>
-        <section id="herd-removal-event-properties">
-          <h4>Properties</h4>
-          <ul>
-            <li>herd - reference to Animal Group</li>
-            <li>date - date of removal</li>
-            <li>reason - reason for removal</li>
-          </ul>
-        </section>
-      </section>
-
-      <section id="herd-responsible-change-event">
-        <h3>Herd Responsible Change Event</h3>
-        <p>An event that changes the responsible organisation for a herd.</p>
-        <section id="herd-responsible-change-event-properties">
-          <h4>Properties</h4>
-          <ul>
-            <li>herd - reference to Animal Group</li>
-            <li>date - date of change</li>
-            <li>oldResponsible - reference to the previous responsible entity</li>
-            <li>newResponsible - reference to the new responsible entity</li>
-          </ul>
-        </section>
-      </section>
-
-      <section id="animal-tagging-event">
-        <h3>Animal Tagging Event</h3>
-        <p>An event that tags an animal with an identifier.</p>
-        <section id="animal-tagging-event-properties">
-          <h4>Properties</h4>
-          <ul>
-            <li>animal - reference to Animal</li>
-            <li>date - date of tagging</li>
-            <li>tag - the identifier applied</li>
-            <li>reason - reason or context</li>
-          </ul>
+        <section>
+            <h4>Semantics</h4>
+            <p>Preconditions: Given Group G, sum hop (?animal-(partOfGroup)->G) = 0.</p>
+            <p>Postconditions: Given Group G, sum hop (?animal-(partOfGroup)->G) = 1.</p>
         </section>
       </section>
     </section>
