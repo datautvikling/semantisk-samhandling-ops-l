@@ -20,14 +20,24 @@ We are interested in enabling traceability of animals in terms of ownership, loc
 6. Assigning unique identifiers to animals
 7. Knowing the responsible organisation for a herd
 8. Knowing the owner of a herd
+9. Transport to slaughterhouse
+
+
+x. transport of animals between locations
 
 ## Data Model
 
 The data model will be based on the following core entities:
 
 - Animal
-
+    - Cattle
+    - Sheep
+    - Pig
+    
 - Herd (Animal Group)
+    - CattleGroup
+    - SheepGroup
+    - PigGroup
 
 - Location (geospatial)
     - Processing Facility
@@ -43,17 +53,48 @@ The data model will be based on the following core entities:
  
  and the folling core events:
 
-- IntoHerdEvent
+- ParturitionEvent
+   - number of calves
+   - number of dead
+   - birth ease
+
+- AnimalTaggingEvent
+    - AnimalId
+    - TagId
+    - Reason (replacement, new tag)
+
+- BirthEvent
+   - MotherId
+   - FatherId from IME event
+   - Sex of calf
+   - Date of birth
+   - breed composition
+
+- TransferOfOwnershipEvent
+    - AnimalId
+    - ToOrganisationId
+    - FromOrganisationId (optional)
+
+- AnimalExportEvent
+
+- AnimalImportEvent
+
 - OutOfHerdEvent
+    - Sale
+    - Death
+    - Slaughter
+
 - AnimalIntoLocationEvent
 - AnimalOutOfLocationEvent
-- LocationRegistrationEvent
-- LocationChangeEvent
+
 - HerdOwnershipChangeEvent
 - HerdRegistrationEvent
 - HerdRemovalEvent
 - HerdResponsibleChangeEvent
-- AnimalTaggingEvent
+- OrganisationRegistration
+- LicenseGrantedEvent
+- LicenseRevokedEvent
+- LicenseProhibitedSentenceEvent
 
 They are supported with the following controlled vocabularies:
 
