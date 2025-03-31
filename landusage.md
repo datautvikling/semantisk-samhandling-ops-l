@@ -11,6 +11,7 @@ Related to animals and crops parcels of land are used for different purposes. Th
 - land parcel usage changes
 - land parcel usage planning
 - land parcel usage monitoring
+- land parcel type
 - creation and evolution of land parcel usage
 
 ## General Concepts and Approach
@@ -28,10 +29,11 @@ It is expected that parcels of land can be contained within other parcels of lan
 
 To support history and tracablity of evolving land usage the model will support the following events:
 
+- Points
 - LandParcelCreationEvent
 - LandParcelRetirementEvent
 - LandParcelOwnershipChangeEvent
-- LandParcelNamesChangeEvent
+- LandParcelNameChangeEvent
 
 Parcels of land are considered to be immutable. Changes to the land parcel will be modelled as new land parcels. identifiers do not change.
 
