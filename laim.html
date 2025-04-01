@@ -1,452 +1,814 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8" />
-    <title>Livestock Agriculture Information Model 1.0</title>
-    <script
-      src="https://www.w3.org/Tools/respec/respec-w3c"
-      class="remove"
-      defer
-    ></script>
-    <script class="remove">
-      // All config options at https://respec.org/docs/
-      var respecConfig = {
-        // Use "unofficial" or "base" to avoid the W3C-specific assumptions
-        specStatus: "unofficial",  // or "base" to indicate this is a non-W3C standard
-        shortName: "iso-standard-short-name",
-        
-        // Title and reference specific to ISO
-        title: "Livestock Agriculture Information Model 1.0",
-        isoReference: "ISO/IEC 12345-6:2024",  // Customize with the correct ISO reference
-        
-        // Editor information
-        editors: [{
-            name: "Graham Moore",
-            company: "MIMIRO",
-            url: "https://github.com/datautvikling/Semantisk-samhandling-OPS-L"
-        }],
 
-        github: "https://github.com/datautvikling/Semantisk-samhandling-OPS-L",
-        
-        // Turn off W3C-specific features
-        noRecTrack: true,  // This ensures it doesn't follow the W3C recommendation track
-        implementationReportURI: "",  // If there is no implementation report URI
-        canonicalURI: "",  // If there is no canonical W3C URI
-        
-        // Hide the W3C-specific logos and header/footer elements
-        logos: [],  // Use empty array to remove default logos
-        
-        // Optionally link to the draft
-        edDraftURI: "https://github.com/datautvikling/Semantisk-samhandling-OPS-L/laim.html",
-        
-        // ISO-specific options you want to include in your Status of This Document (SOTD)
-        sotdText: `
+<head>
+  <meta charset="utf-8" />
+  <title>Livestock Agriculture Information Model 1.0</title>
+  <script src="https://www.w3.org/Tools/respec/respec-w3c" class="remove" defer></script>
+  <script class="remove">
+    // All config options at https://respec.org/docs/
+    var respecConfig = {
+      // Use "unofficial" or "base" to avoid the W3C-specific assumptions
+      specStatus: "unofficial",  // or "base" to indicate this is a non-W3C standard
+      shortName: "iso-standard-short-name",
+
+      // Title and reference specific to ISO
+      title: "Livestock Agriculture Information Model 1.0",
+      isoReference: "ISO/IEC 12345-6:2024",  // Customize with the correct ISO reference
+
+      // Editor information
+      editors: [{
+        name: "Graham Moore",
+        company: "MIMIRO",
+        url: "https://github.com/datautvikling/Semantisk-samhandling-OPS-L"
+      }],
+
+      github: "https://github.com/datautvikling/Semantisk-samhandling-OPS-L",
+
+      // Turn off W3C-specific features
+      noRecTrack: true,  // This ensures it doesn't follow the W3C recommendation track
+      implementationReportURI: "",  // If there is no implementation report URI
+      canonicalURI: "",  // If there is no canonical W3C URI
+
+      // Hide the W3C-specific logos and header/footer elements
+      logos: [],  // Use empty array to remove default logos
+
+      // Optionally link to the draft
+      edDraftURI: "https://github.com/datautvikling/Semantisk-samhandling-OPS-L/laim.html",
+
+      // ISO-specific options you want to include in your Status of This Document (SOTD)
+      sotdText: `
             <h2>Status of This Document</h2>
             <p>This document is a Draft International Standard (DIS) developed by ISO/IEC. It is subject to change based on comments received during the consultation process with national member bodies and technical committees. This document does not represent a final ISO standard until it has been approved and published.</p>
         `,
-        
-        // Customize the document's license section if needed
-        license: "document",  // Ensure this aligns with the licensing model ISO uses
+
+      // Customize the document's license section if needed
+      license: "document",  // Ensure this aligns with the licensing model ISO uses
     };
-    </script>
-  </head>
-  <body>
-    <section id="abstract">
-      <p>A logical and semantic information model that describes the core entities, relationships and events for livestock.</p>
-    </section>
-    <section id="sotd">
+  </script>
+</head>
 
-    </section>
-    <section class="informative">
-      <h2>Introduction</h2>
-      <p>Defining a semantic information model with concrete syntax based on international standards will improve the quality and timeliness of data exchange in agriculture. These improvements in inter-system communication leads to lower costs of integration, solutions of higher accuracy and the opportunity to create more value for farmers and industry organisations.</p>
-      <aside class="note" title="background">
-        <p>Other industries have benefited from this approach and this initiative is an attempt to bring these concepts to agriculture.</p>
-      </aside>
-    </section>
+<body>
+  <section id="abstract">
+    <p>A logical and semantic information model that describes the core entities, relationships and events for animal
+      productions.</p>
+  </section>
+  <section id="sotd">
 
-    <section>
-      <h2>Guide to the specification</h2>
+  </section>
+  <section class="informative">
+    <h2>Introduction</h2>
+    <p>Defining a semantic information model with concrete syntax based on international standards will improve the
+      quality and timeliness of data exchange in agriculture. These improvements in inter-system communication leads to
+      lower costs of integration, solutions of higher accuracy and the opportunity to create more value for farmers and
+      industry organisations.</p>
+    <aside class="note" title="background">
+      <p>Other industries have benefited from this approach and this initiative is an attempt to bring these concepts to
+        agriculture.</p>
+    </aside>
+  </section>
+
+  <section>
+    <h2>Guide to the specification</h2>
+    <p>
+      This specification uses a common approach to modelling and representing different aspects of animal production.
+      The specification is divided into the following sections, Animal Location Ownership and Respsonibility, Animal
+      Feeding, Animal Health, Animal Reproduction, Animal Slaughter, Animal Production Events. Each of these sections
+      defines a set of events related to the specific aspect of livestock agriculture. These events utilise common
+      entities that are defined in the Common Entities section. Each section defines events as a logical information
+      model, with text and diagrams, and then provides the RDF and SHACL representation of the event. Controlled
+      vocabularies are used to define some of the values of the properties belonging to events. These are defined in the
+      section called Common Vocabulary.
+    </p>
+  </section>
+
+  <section>
+    <h2>Common Entities</h2>
+    <p>
+      The following common entities are used in the specification and definition of events.
+    </p>
+    <section id="base-entity-class">
+      <h3>Base Entity</h3>
       <p>
-          This specification uses a common approach to modelling and representing different aspects of livestock agriculture. The specification is divided into the following sections, Animal Location Ownership and Respsonibility, Animal Feeding, Animal Health, Animal Reproduction, Animal Slaughter, Animal Production Events. Each of these sections defines a set of events related to the specific aspect of livestock agriculture. These events utilise common entities that are defined in the Common Entities section. Each section defines events as a logical information model, with text and diagrams, and then provides the RDF and SHACL representation of the event. Controlled vocabularies are used to define some of the values of the properties belonging to events. These are defined in the section called Common Vocabulary.
+        The base entity is the root class for all entities in the model. It has meta properties that enable it to be
+        used as part of the generic data sharing API.
       </p>
-    </section>
-
-    <section>
-      <h2>Common Entities</h2>
-      <p>
-        The following common entities are used in the specification and definition of events.
-      </p>
-      <section id="base-entity-class">
-        <h3>Base Entity</h3>
-        <p>
-          The base entity is the root class for all entities in the model. It has meta properties that enable it to be used as part of the generic data sharing API.
-        </p>
-        <section id="base-entity-class-properties">
-          <h4>Properties</h4>
-          <ul>
-            <li>id (URI) - a unique system identifier</li>
-            <li>external identifiers ([]URI) - 1 or more identifiers for the same entity</li>
-            <li>deleted (boolean) - indicates if this entity has been deleted</li>
-            <li>modified (DateTime) - date and time the entity was modified, full time zone representation</li>
-            <li>Provinance (Map) - a set of sub proopeties that contains: properties, signer, hash - for use in distributed verification of data</li>
-          </ul>
-        </section>
+      <section id="base-entity-class-properties">
+        <h4>Properties</h4>
+        <ul>
+          <li>id (URI) - a unique identifier</li>
+          <li>external identifiers ([]URI) - 1 or more identifiers for the same entity</li>
+          <li>deleted (boolean) - indicates if this entity has been deleted</li>
+          <li>modified (DateTime) - date and time the entity was modified, full time zone representation</li>
+          <li>Provinance (Map) - a set of sub propeties that contains: properties, signer, hash - for use in
+            distributed verification of data</li>
+        </ul>
       </section>
 
-      <section id="commercial-organisation-class">
-        <h3>Commercial Organisation</h3>
-        <p>
-          A commercial organisation is a business entity that is involved in the buying and selling of goods and services.
-        </p>
-        <p>
-            Uniquely identified by <i>http://data.opsl.no/laim/CommercialOrganisation</i>.
-        </p>
-        <section id="commercial-organisation-class-properties">
-          <h4>Properties</h4>
-          <ul>
-            <li>id (URI) - a unique system identifier</li>
-            <li>external identifiers ([]URI) - 1 or more identifiers for the same organisation</li>
-          </ul>
-        </section>
-        <section id="commercial-organisation-class-rdf">
-           <h4>RDF Representation</h4>
+      <section id="base-entity-class-rdf">
+        <h4>RDF Representation</h4>
 
-           <h5>Definition</h5>
-            <pre class="language-plaintext">
-            @prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
-            @prefix rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt; .
-            @prefix xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt; .
-            @prefix schema: &lt;http://schema.org/&gt; .
-            @prefix laim: &lt;http://data.opsl.no/laim/&gt; .
-
-            laim:CommercialOrganisation a rdfs:Class ;
-              rdfs:label "Commercial Organisation" ;
-              rdfs:comment "A business entity that is involved in the buying and selling of goods and services." ;
-
-            laim:externalIdentifier a rdf:Property ;
-              rdfs:label "External Identifier" ;
-              rdfs:comment "An external identifier for the organisation." ;
-              rdfs:domain lami:CommercialOrganisation ;
-              rdfs:range xsd:string ;
-              rdfs:subPropertyOf schema:identifier ;
-            </pre>
-
-            <h5>SHACL</h5>
-            <pre class="language-plaintext">
-            @prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
-            @prefix rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt; .
-            @prefix xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt; .
-            @prefix schema: &lt;http://schema.org/&gt; .
-            @prefix laim: &lt;http://data.opsl.no/laim/&gt; .
-            
-            laim:CommercialOrganisationShape a sh:NodeShape ;
-              sh:targetClass laim:CommercialOrganisation ;
-              sh:property [
-                sh:path lami:externalIdentifier ;
-                sh:datatype xsd:string ;
-                sh:minCount 0 ;
-                # no maxCount
-              ] ;
-            </pre>                              
-        </section>
-      </section>
-      <section id="single-person-commercial-organisation-class">
-        <h3>Single Person Commercial Organisation</h3>
-        <p>
-          A single person commercial organisation is a business entity that is owned and operated by a single person.
-        </p>
-      </section>
-      <section id="animal-class">
-        <h3>Animal</h3>
-        <p>
-          An animal is a living organism that feeds on organic matter, typically having specialized sense organs and nervous system and able to respond rapidly to stimuli.
-        </p>
-        <p>
-            <img src="img/overall.png" alt="Animal Class Diagram">
-        </p>
-        <section id="animal-class-properties">
-          <h4>Properties</h4>
-          <ul>
-            <li>id - a unique system identifier</li>
-            <li>external identifiers - 1 or more identifiers for the same animal</li>
-            <li>partOfGroup - a reference to an instance of type animal group</li>
-        </section>
-      </section>
-      <section id="animal-group-class">
-        <h3>Animal Group</h3>
-        <p>
-          An animal group is a collection of animals that are managed together.
-        </p>
-      </section>
-      <section id="cattle-class">
-        <h3>Cattle</h3>
-        <p>
-          Cattle is a subclass of Animal, Bos taurus, a domesticated bovine primarily animal kept for milk or meat.
-        </p>
-      </section>
-      <section id="cattle-group-class">
-        <h3>Cattle Group</h3>
-        <p>
-          Cattle Group is a subclass of Animal Group, a group of cattle that are managed together.
-        </p>
-        <section id="cattle-group-class-properties">
-          <h4>Properties</h4>
-          <ul>
-            <li>partOfCattleGroup - a reference to a cattle group to which this Cattle instance belongs. This relationship class is a subClassOf <i>partOfGroup</i></li>
-          </ul>
-        </section>
-      </section>
-      <section id="sheep-class">
-        <h3>Sheep</h3>
-        <p>
-          Sheep is a subclass of Animal, Ovis aries, a domesticated ruminant animal with a thick woolly coat. Primarily kept for wool and meat production.
-        </p>
-      </section>
-      <section id="goat-class">
-        <h3>Goat</h3>
-        <p>
-          Goat is a subclass of Animal, Capra aegagrus hircus, a domesticated ruminant animal with a thick woolly coat. Used for meat and milk production.
-        </p>
-      </section>
-      <section id="pig-class">
-        <h3>Pig</h3>
-        <p>
-          Pig is a subclass of Animal, Sus scrofa domesticus, a domesticated mammal with a stout body, cloven hooves, and a short tail. Used for meat production.
-        </p>
-      </section>
-      <section id="turkey-class">
-        <h3>Turkey</h3>
-        <p>
-          Turkeyy is a subclass of Animal, domesticated birds kept for their meat.
-        </p>    
-      </section>
-      <section id="chicken-class">
-        <h3>Chicken</h3>
-        <p>
-          Chicken is a subclass of Animal, domesticated birds kept for their meat and eggs.
-        </p>
-      </section>
-      <section id="duck-class">
-        <h3>Duck</h3>
-        <p>
-          Duck is a subclass of Animal, domesticated birds kept for their meat and eggs.
-        </p>
-      </section>
-    </section>
-
-    <section>
-      <h2>Animal Location, Responsility and Transer Events</h2>
+        <h5>Definition</h5>
+        <pre class="language-plaintext">
+        @prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+        @prefix rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt; .
+        @prefix xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt; .
+        @prefix schema: &lt;http://schema.org/&gt; .
+        @prefix laim: &lt;http://data.opsl.no/laim/&gt; .
       
-      <section id="animal-parturition-event">
-        <h3>Animal Parturition Event</h3>
-        <p>
-          An event that captures that a an animal has given birth.
-        </p>
-        <section id="animal-parturition-event-properties">
-          <h4>Properties</h4>
-          <ul>
-            <li>animal - a reference to an instance of type animal</li>
-            <li>herd - a reference to an instance of type animal group</li>
-            <li>date - the date the animal was transferred into the herd</li>
-            <li>number of offstring - the total number of animals born</li>
-            <li>number of dead offstring - the number that died at birth / stillborn</li>
-            <li>birth ease score - rating of how easy the birth was</li>
-          </ul>
-        </section>
-      </section>
+        laim:BaseEntity a rdfs:Class ;
+          rdfs:label "Base Entity" ;
+          rdfs:comment "The root class for all entities in the model, with meta properties for generic data sharing." .
+        </pre>
 
-      <section id="animal-birth-event">
-        <h3>Animal Birth Event</h3>
-        <p>An event that records the birth of an animal.</p>
-        <section id="animal-birth-event-properties">
-          <h4>Properties</h4>
-          <ul>
-            <li>animal - identifier for the new Animal</li>
-            <li>mother - reference to mother</li>
-            <li>father - reference to father</li>
-            <li>herd - reference to Animal Group</li>
-            <li>sex - sex of the animal</li>
-            <li>breed composition - breed composition</li>
-          </ul>
-        </section>
-      </section>
-
-      <section id="animal-tagging-event">
-        <h3>Animal Tagging Event</h3>
-        <p>An event that adds a animal to a herd.</p>
-        <section id="animal-tagging-event-properties">
-          <h4>Properties</h4>
-          <ul>
-            <li>animal - reference to Animal</li>
-            <li>location - reference to Location</li>
-            <li>date - date of movement</li>
-            <li>reason - reason for movement</li>
-            <li>from - optional origin</li>
-          </ul>
-        </section>
-      </section>
-
-      <section id="animal-transfer-of-ownership-event">
-        <h3>Transfer of Ownership Event</h3>
-        <p>An event that moves an animal between organisations</p>
-        <section id="transfer-of-ownership-event-properties">
-          <h4>Properties</h4>
-          <ul>
-            <li>animal - reference to Animal</li>
-            <li>toOrganisation - organisation that now has the animal</li>
-            <li>fromOrganisation - (optional) ref to organisation where the animal came from</li>
-            <li>reason - transfer reason (Sale, Slaughter)</li>
-          </ul>
-        </section>
-      </section>
-
-      <section id="animal-death-event">
-        <h3>Animal Death Event</h3>
-        <p>An event that moves an animal out of a herd due to death</p>
-        <section id="anima-death-event-properties">
-          <h4>Properties</h4>
-          <ul>
-            <li>animal - reference to Animal</li>
-            <li>reason - death reason</li>
-          </ul>
-        </section>
-      </section>
-
-      <section id="location-registration-event">
-        <h3>Location Registration Event</h3>
-        <p>An event registering a new location.</p>
-        <section id="location-registration-event-properties">
-          <h4>Properties</h4>
-          <ul>
-            <li>location - reference to Location</li>
-            <li>date - date of registration</li>
-            <li>geo coordinates</li>
-            <li>reason - purpose of registration</li>
-          </ul>
-        </section>
-      </section>
-
-      <section id="location-decommissioned-event">
-        <h3>Location Decommissioned Event</h3>
-        <p>An event indicating that a location has been decommissioned.</p>
-        <section id="location-decommissioned-event-properties">
-          <h4>Properties</h4>
-          <ul>
-            <li>location - reference to Location</li>
-            <li>date - date of decommissioning</li>
-            <li>reason - reason for decommissioning</li>
-          </ul>
-        </section>
-      </section>
-
-      <section id="herd-ownership-change-event">
-        <h3>Herd Ownership Change Event</h3>
-        <p>An event that changes the ownership of a herd.</p>
-        <section id="herd-ownership-change-event-properties">
-          <h4>Properties</h4>
-          <ul>
-            <li>herd - reference to Animal Group</li>
-            <li>date - date of change</li>
-            <li>oldOwner - reference to the previous owner</li>
-            <li>newOwner - reference to the new owner</li>
-          </ul>
-        </section>
-      </section>
-
-      <section id="herd-registration-event">
-        <h3>Herd Registration Event</h3>
-        <p>An event that registers a new herd.</p>
-        <section id="herd-registration-event-properties">
-          <h4>Properties</h4>
-          <ul>
-            <li>herd - reference to Animal Group</li>
-            <li>date - date of registration</li>
-            <li>reason - purpose of registration</li>
-          </ul>
-        </section>
-      </section>
-
-      <section id="herd-removal-event">
-        <h3>Herd Removal Event</h3>
-        <p>An event that removes or deactivates a herd.</p>
-        <section id="herd-removal-event-properties">
-          <h4>Properties</h4>
-          <ul>
-            <li>herd - reference to Animal Group</li>
-            <li>date - date of removal</li>
-            <li>reason - reason for removal</li>
-          </ul>
-        </section>
-      </section>
-
-      <section id="herd-responsible-change-event">
-        <h3>Herd Responsible Change Event</h3>
-        <p>An event that changes the responsible organisation for a herd.</p>
-        <section id="herd-responsible-change-event-properties">
-          <h4>Properties</h4>
-          <ul>
-            <li>herd - reference to Animal Group</li>
-            <li>date - date of change</li>
-            <li>oldResponsible - reference to the previous responsible entity</li>
-            <li>newResponsible - reference to the new responsible entity</li>
-          </ul>
-        </section>
-      </section>
-
-      <section id="animal-into-location-event">
-        <h3>Animal Into Location Event</h3>
-        <p>An event that records an animal being moved into a location.</p>
-        <section id="animal-into-location-event-properties">
-          <h4>Properties</h4>
-          <ul>
-            <li>animal - reference to Animal</li>
-            <li>location - reference to Location</li>
-            <li>date - date of movement</li>
-            <li>reason - reason for movement</li>
-          </ul>
-        </section>
-      </section>
-
-      <section id="animal-out-of-location-event">
-        <h3>Animal Out Of Location Event</h3>
-        <p>An event that records an animal being moved out of a location.</p>
-        <section id="animal-out-of-location-event-properties">
-          <h4>Properties</h4>
-          <ul>
-            <li>animal - reference to Animal</li>
-            <li>location - reference to Location</li>
-            <li>date - date of movement</li>
-            <li>reason - reason for movement</li>
-          </ul>
-        </section>
+        <h5>SHACL</h5>
+        <pre class="language-plaintext">
+        @prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+        @prefix rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt; .
+        @prefix xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt; .
+        @prefix schema: &lt;http://schema.org/&gt; .
+        @prefix laim: &lt;http://data.opsl.no/laim/&gt; .
+        @prefix sh: &lt;http://www.w3.org/ns/shacl#&gt; .
+      
+        laim:BaseEntityShape a sh:NodeShape ;
+          sh:targetClass laim:BaseEntity ;
+          sh:property [
+            sh:path laim:id ;
+            sh:datatype xsd:anyURI ;
+            sh:minCount 1 ;
+            sh:maxCount 1 ;
+          ] ;
+          sh:property [
+            sh:path laim:externalIdentifier ;
+            sh:datatype xsd:anyURI ;
+            sh:minCount 0 ;
+          ] ;
+          sh:property [
+            sh:path laim:deleted ;
+            sh:datatype xsd:boolean ;
+            sh:minCount 1 ;
+            sh:maxCount 1 ;
+          ] ;
+          sh:property [
+            sh:path laim:modified ;
+            sh:datatype xsd:dateTime ;
+            sh:minCount 1 ;
+            sh:maxCount 1 ;
+          ] ;
+          sh:property [
+            sh:path laim:provenance ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:minCount 0 ;
+          ] .
+        </pre>
       </section>
     </section>
 
-    <section>
-      <h2>Animal Feeding Events</h2>
+    <section id="common-base-event-class">
+      <h3>Event</h3>
+      <p>
+        The Common Base Event is an abstract class for defining events in the model. It inherits from Base Entity and includes properties for start and end times.
+      </p>
+      <p>Uniquely identified by <i>http://data.opsl.no/laim/Event</i>.</p>
+      <p>Inherits from <a href="#base-entity-class">Base Entity</a></p>
+      <p>IsAbstract</p>
+    
+      <section id="common-base-event-class-properties">
+        <h4>Properties</h4>
+        <ul>
+          <li>started (DateTime) - the start time of the event</li>
+          <li>ended (DateTime) - the end time of the event</li>
+        </ul>
+      </section>
+    
+      <section id="common-base-event-class-rdf">
+        <h4>RDF Representation</h4>
+    
+        <h5>Definition</h5>
+        <pre class="language-plaintext">
+        @prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+        @prefix rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt; .
+        @prefix xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt; .
+        @prefix schema: &lt;http://schema.org/&gt; .
+        @prefix laim: &lt;http://data.opsl.no/laim/&gt; .
+    
+        laim:CommonBaseEvent a rdfs:Class ;
+          rdfs:label "Event" ;
+          rdfs:comment "An abstract class for defining events in the model, with start and end times." ;
+          rdfs:subClassOf laim:BaseEntity .
+        </pre>
+    
+        <h5>SHACL</h5>
+        <pre class="language-plaintext">
+        @prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+        @prefix rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt; .
+        @prefix xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt; .
+        @prefix schema: &lt;http://schema.org/&gt; .
+        @prefix laim: &lt;http://data.opsl.no/laim/&gt; .
+        @prefix sh: &lt;http://www.w3.org/ns/shacl#&gt; .
+    
+        laim:CommonBaseEventShape a sh:NodeShape ;
+          sh:targetClass laim:CommonBaseEvent ;
+          sh:node laim:BaseEntityShape ; # Inherit constraints from BaseEntityShape
+          sh:property [
+            sh:path laim:started ;
+            sh:datatype xsd:dateTime ;
+            sh:minCount 1 ;
+            sh:maxCount 1 ;
+          ] ;
+          sh:property [
+            sh:path laim:ended ;
+            sh:datatype xsd:dateTime ;
+            sh:minCount 0 ;
+            sh:maxCount 1 ;
+          ] .
+        </pre>
+      </section>
     </section>
 
-    <section>
-      <h2>Animal Reproduction Events</h2>
+    <section id="organisational-unit-class">
+      <h3>Organisational Unit</h3>
+      <p>
+        Organisational Unit is a abstract class for defining an organisation that is involved in the management of
+        animals.
+      </p>
+      <p>Uniquely identified by <i>http://data.opsl.no/laim/OrganisationalUnit</i>.</p>
+      <p>Inherits from <a href="#base-entity-class">Base Entity</a></p>
+      <p>IsAbstract</p>
+
+      <section id="organisational-unit-class-rdf">
+        <h4>RDF Representation</h4>
+
+        <h5>Definition</h5>
+        <pre class="language-plaintext">
+        @prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+        @prefix rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt; .
+        @prefix xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt; .
+        @prefix schema: &lt;http://schema.org/&gt; .
+        @prefix laim: &lt;http://data.opsl.no/laim/&gt; .
+        @prefix sh: &lt;http://www.w3.org/ns/shacl#&gt; .
+
+        laim:OrganisationalUnit a rdfs:Class ;
+          rdfs:label "Organisational Unit" ;
+          rdfs:comment "An abstract class for defining an organisation involved in the management of animals." ;
+          rdfs:subClassOf laim:BaseEntity .
+        </pre>
+
+        <h5>SHACL</h5>
+        <pre class="language-plaintext">
+        @prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+        @prefix rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt; .
+        @prefix xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt; .
+        @prefix schema: &lt;http://schema.org/&gt; .
+        @prefix laim: &lt;http://data.opsl.no/laim/&gt; .
+        @prefix sh: &lt;http://www.w3.org/ns/shacl#&gt; .
+
+        laim:OrganisationalUnitShape a sh:NodeShape ;
+          sh:targetClass laim:OrganisationalUnit ;
+          sh:node laim:BaseEntityShape ; # Inherit constraints from BaseEntityShape
+        </pre>
+      </section>
     </section>
 
+    <section id="commercial-organisation-class">
+      <h3>Commercial Organisation</h3>
+      <p>A commercial organisation is a business entity that is involved in the buying and selling of goods and
+        services.</p>
+      <p>Uniquely identified by <i>http://data.opsl.no/laim/CommercialOrganisation</i>.</p>
+      <p>Inherits from Organisational Unit</p>
+      <section id="commercial-organisation-class-properties">
+        <h4>Properties</h4>
+        <ul>
+          <li>Country (URI) - ISO code (ISO 3166) for country where the organisation is registered</li>
+          <li>Legal Entity Identifier (URI) - Lrgal Entity Identifier code for the organisation</li>
+        </ul>
+      </section>
+
+      <section id="commercial-organisation-class-rdf">
+        <h4>RDF Representation</h4>
+      
+        <h5>Definition</h5>
+        <pre class="language-plaintext">
+        @prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+        @prefix rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt; .
+        @prefix xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt; .
+        @prefix schema: &lt;http://schema.org/&gt; .
+        @prefix laim: &lt;http://data.opsl.no/laim/&gt; .
+      
+        laim:CommercialOrganisation a rdfs:Class ;
+          rdfs:label "Commercial Organisation" ;
+          rdfs:comment "A business entity that is involved in the buying and selling of goods and services." ;
+          rdfs:subClassOf laim:OrganisationalUnit .
+        </pre>
+      
+        <h5>SHACL</h5>
+        <pre class="language-plaintext">
+        @prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+        @prefix rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt; .
+        @prefix xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt; .
+        @prefix schema: &lt;http://schema.org/&gt; .
+        @prefix laim: &lt;http://data.opsl.no/laim/&gt; .
+        @prefix sh: &lt;http://www.w3.org/ns/shacl#&gt; .
+      
+        laim:CommercialOrganisationShape a sh:NodeShape ;
+          sh:targetClass laim:CommercialOrganisation ;
+          sh:node laim:OrganisationalUnitShape ; # Inherit constraints from OrganisationalUnitShape
+          sh:property [
+            sh:path laim:country ;
+            sh:datatype xsd:anyURI ;
+            sh:minCount 1 ;
+            sh:maxCount 1 ;
+          ] ;
+          sh:property [
+            sh:path laim:legalEntityIdentifier ;
+            sh:datatype xsd:anyURI ;
+            sh:minCount 1 ;
+            sh:maxCount 1 ;
+          ] .
+        </pre>
+      </section>
+
+    </section>
+
+    <section id="private-individual-organisation-class">
+      <h3>Private Individual</h3>
+      <p>
+        A private individual.
+      </p>
+      <p>Uniquely identified by <i>http://data.opsl.no/laim/PrivateIndividual</i>.</p>
+      <p>Inherits from Organisational Unit</p>
+
+      <section id="private-individual-organisation-class-properties">
+        <h4>Properties</h4>
+        <ul>
+          <li>Legal Entity Identifier (URI) - Legal Entity Identifier code for the individual</li>
+        </ul>
+      </section>
+
+      <section id="private-individual-organisation-class-rdf">
+        <h4>RDF Representation</h4>
+      
+        <h5>Definition</h5>
+        <pre class="language-plaintext">
+        @prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+        @prefix rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt; .
+        @prefix xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt; .
+        @prefix schema: &lt;http://schema.org/&gt; .
+        @prefix laim: &lt;http://data.opsl.no/laim/&gt; .
+      
+        laim:PrivateIndividual a rdfs:Class ;
+          rdfs:label "Private Individual" ;
+          rdfs:comment "A private individual." ;
+          rdfs:subClassOf laim:OrganisationalUnit .
+        </pre>
+      
+        <h5>SHACL</h5>
+        <pre class="language-plaintext">
+        @prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+        @prefix rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt; .
+        @prefix xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt; .
+        @prefix schema: &lt;http://schema.org/&gt; .
+        @prefix laim: &lt;http://data.opsl.no/laim/&gt; .
+        @prefix sh: &lt;http://www.w3.org/ns/shacl#&gt; .
+      
+        laim:PrivateIndividualShape a sh:NodeShape ;
+          sh:targetClass laim:PrivateIndividual ;
+          sh:node laim:OrganisationalUnitShape ; # Inherit constraints from OrganisationalUnitShape
+          sh:property [
+            sh:path laim:legalEntityIdentifier ;
+            sh:datatype xsd:anyURI ;
+            sh:minCount 1 ;
+            sh:maxCount 1 ;
+          ] .
+        </pre>
+      </section>
+
+    </section>
+
+    <section id="single-person-commercial-organisation-class">
+      <h3>Single Person Commercial Organisation</h3>
+      <p>
+        A single person commercial organisation is a business entity that is owned and operated by a single person.
+      </p>
+      <p>Uniquely identified by <i>http://data.opsl.no/laim/SinglePersonCommercialOrganisation</i>.</p>
+      <p>Inherits from Organisational Unit</p>
+
+      <section id="single-person-commercial-organisation-class-properties">
+        <h4>Properties</h4>
+        <ul>
+          <li>Country (URI) - ISO code (ISO 3166) for country where the organisation is registered</li>
+          <li>Legal Entity Identifier (URI) - Legal Entity Identifier code for the organisation</li>
+        </ul>
+      </section>
+
+      <section id="single-person-commercial-organisation-class-rdf">
+        <h4>RDF Representation</h4>
+      
+        <h5>Definition</h5>
+        <pre class="language-plaintext">
+        @prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+        @prefix rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt; .
+        @prefix xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt; .
+        @prefix schema: &lt;http://schema.org/&gt; .
+        @prefix laim: &lt;http://data.opsl.no/laim/&gt; .
+      
+        laim:SinglePersonCommercialOrganisation a rdfs:Class ;
+          rdfs:label "Single Person Commercial Organisation" ;
+          rdfs:comment "A business entity that is owned and operated by a single person." ;
+          rdfs:subClassOf laim:CommercialOrganisation .
+        </pre>
+      
+        <h5>SHACL</h5>
+        <pre class="language-plaintext">
+        @prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+        @prefix rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt; .
+        @prefix xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt; .
+        @prefix schema: &lt;http://schema.org/&gt; .
+        @prefix laim: &lt;http://data.opsl.no/laim/&gt; .
+        @prefix sh: &lt;http://www.w3.org/ns/shacl#&gt; .
+      
+        laim:SinglePersonCommercialOrganisationShape a sh:NodeShape ;
+          sh:targetClass laim:SinglePersonCommercialOrganisation ;
+          sh:node laim:CommercialOrganisationShape ; # Inherit constraints from CommercialOrganisationShape
+          sh:property [
+            sh:path laim:country ;
+            sh:datatype xsd:anyURI ;
+            sh:minCount 1 ;
+            sh:maxCount 1 ;
+          ] ;
+          sh:property [
+            sh:path laim:legalEntityIdentifier ;
+            sh:datatype xsd:anyURI ;
+            sh:minCount 1 ;
+            sh:maxCount 1 ;
+          ] .
+        </pre>
+      </section>
+    </section>
+
+    <section id="animal-class">
+      <h3>Animal</h3>
+      <p>
+        An animal is a living organism that feeds on organic matter, typically having specialized sense organs and
+        nervous system and able to respond rapidly to stimuli.
+      </p>
+      <p>
+        <img src="img/overall.png" alt="Animal Class Diagram">
+      </p>
+      <section id="animal-class-properties">
+        <h4>Properties</h4>
+        <ul>
+          <li>id - a unique system identifier</li>
+          <li>external identifiers - 1 or more identifiers for the same animal</li>
+          <li>partOfGroup - a reference to an instance of type animal group</li>
+      </section>
+    </section>
+    <section id="animal-group-class">
+      <h3>Animal Group</h3>
+      <p>
+        An animal group is a collection of animals that are managed together.
+      </p>
+    </section>
+    <section id="cattle-class">
+      <h3>Cattle</h3>
+      <p>
+        Cattle is a subclass of Animal, Bos taurus, a domesticated bovine primarily animal kept for milk or meat.
+      </p>
+    </section>
+    <section id="cattle-group-class">
+      <h3>Cattle Group</h3>
+      <p>
+        Cattle Group is a subclass of Animal Group, a group of cattle that are managed together.
+      </p>
+      <section id="cattle-group-class-properties">
+        <h4>Properties</h4>
+        <ul>
+          <li>partOfCattleGroup - a reference to a cattle group to which this Cattle instance belongs. This relationship
+            class is a subClassOf <i>partOfGroup</i></li>
+        </ul>
+      </section>
+    </section>
+    <section id="sheep-class">
+      <h3>Sheep</h3>
+      <p>
+        Sheep is a subclass of Animal, Ovis aries, a domesticated ruminant animal with a thick woolly coat. Primarily
+        kept for wool and meat production.
+      </p>
+    </section>
+    <section id="goat-class">
+      <h3>Goat</h3>
+      <p>
+        Goat is a subclass of Animal, Capra aegagrus hircus, a domesticated ruminant animal with a thick woolly coat.
+        Used for meat and milk production.
+      </p>
+    </section>
+    <section id="pig-class">
+      <h3>Pig</h3>
+      <p>
+        Pig is a subclass of Animal, Sus scrofa domesticus, a domesticated mammal with a stout body, cloven hooves, and
+        a short tail. Used for meat production.
+      </p>
+    </section>
+    <section id="turkey-class">
+      <h3>Turkey</h3>
+      <p>
+        Turkeyy is a subclass of Animal, domesticated birds kept for their meat.
+      </p>
+    </section>
+    <section id="chicken-class">
+      <h3>Chicken</h3>
+      <p>
+        Chicken is a subclass of Animal, domesticated birds kept for their meat and eggs.
+      </p>
+    </section>
+    <section id="duck-class">
+      <h3>Duck</h3>
+      <p>
+        Duck is a subclass of Animal, domesticated birds kept for their meat and eggs.
+      </p>
+    </section>
+
+    <section id="location-class">
+      <h3>Location</h3>
+      <p>
+        A location is a physical place where animals or herds are kept or events occur.
+      </p>
+      <p>Uniquely identified by <i>http://data.opsl.no/laim/Location</i>.</p>
+    
+      <section id="location-class-properties">
+        <h4>Properties</h4>
+        <ul>
+          <li>name (string) - the name of the location</li>
+          <li>geoCoordinates (GeoCoordinates) - the geographical coordinates of the location</li>
+          <li>location type (URI) - the type of location (e.g., farm, slaughterhouse, etc.)</li>
+        </ul>
+      </section>
+    
+      <section id="location-class-rdf">
+        <h4>RDF Representation</h4>
+    
+        <h5>Definition</h5>
+        <pre class="language-plaintext">
+        @prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+        @prefix rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt; .
+        @prefix xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt; .
+        @prefix schema: &lt;http://schema.org/&gt; .
+        @prefix laim: &lt;http://data.opsl.no/laim/&gt; .
+    
+        laim:Location a rdfs:Class ;
+          rdfs:label "Location" ;
+          rdfs:comment "A physical place where animals or herds are kept or events occur." ;
+          rdfs:subClassOf laim:BaseEntity .
+        </pre>
+    
+        <h5>SHACL</h5>
+        <pre class="language-plaintext">
+        @prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+        @prefix rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt; .
+        @prefix xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt; .
+        @prefix schema: &lt;http://schema.org/&gt; .
+        @prefix laim: &lt;http://data.opsl.no/laim/&gt; .
+        @prefix sh: &lt;http://www.w3.org/ns/shacl#&gt; .
+    
+        laim:LocationShape a sh:NodeShape ;
+          sh:targetClass laim:Location ;
+          sh:node laim:BaseEntityShape ; # Inherit constraints from BaseEntityShape
+          sh:property [
+            sh:path laim:name ;
+            sh:datatype xsd:string ;
+            sh:minCount 0 ;
+            sh:maxCount 1 ;
+          ] ;
+          sh:property [
+            sh:path laim:geoCoordinates ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:minCount 0 ;
+            sh:maxCount 1 ;
+          ] ;
+          sh:property [
+            sh:path laim:locationType ;
+            sh:datatype xsd:anyURI ;
+            sh:minCount 0 ;
+            sh:maxCount 1 ;
+          ] .
+        </pre>
+      </section>
+    </section>
+  </section>
+
+  <section>
+    <h2>Animal Location, Responsibility and Transfer Events</h2>
+
+    <section id="animal-parturition-event">
+      <h3>Animal Parturition Event</h3>
+      <p>
+        An event that captures that a an animal has given birth.
+      </p>
+      <section id="animal-parturition-event-properties">
+        <h4>Properties</h4>
+        <ul>
+          <li>animal - a reference to an instance of type animal</li>
+          <li>herd - a reference to an instance of type animal group</li>
+          <li>date - the date the animal was transferred into the herd</li>
+          <li>number of offstring - the total number of animals born</li>
+          <li>number of dead offstring - the number that died at birth / stillborn</li>
+          <li>birth ease score - rating of how easy the birth was</li>
+        </ul>
+      </section>
+    </section>
+
+    <section id="animal-birth-event">
+      <h3>Animal Birth Event</h3>
+      <p>An event that records the birth of an animal.</p>
+      <section id="animal-birth-event-properties">
+        <h4>Properties</h4>
+        <ul>
+          <li>animal - identifier for the new Animal</li>
+          <li>mother - reference to mother</li>
+          <li>father - optional reference to father</li>
+          <li>herd - reference to Animal Group</li>
+          <li>sex - sex of the animal</li>
+          <li>breed composition - breed composition</li>
+        </ul>
+      </section>
+    </section>
+
+    <section id="animal-tagging-event">
+      <h3>Animal Tagging Event</h3>
+      <p>An event that records the taggin of the animal.</p>
+      <section id="animal-tagging-event-properties">
+        <h4>Properties</h4>
+        <ul>
+          <li>animal - reference to Animal</li>
+          <li>location - reference to Location</li>
+          <li>date - date of movement</li>
+          <li>reason - reason for movement</li>
+          <li>from - optional origin</li>
+        </ul>
+      </section>
+    </section>
+
+    <section id="animal-transfer-of-ownership-event">
+      <h3>Transfer of Ownership Event</h3>
+      <p>An event that moves an animal between organisations</p>
+      <section id="transfer-of-ownership-event-properties">
+        <h4>Properties</h4>
+        <ul>
+          <li>animal - reference to Animal</li>
+          <li>to - herd id (we should have the model for orgs and herd ids)</li>
+          <li>from - herd id</li>
+          <li>reason - transfer reason (Sale, Slaughter)</li>
+        </ul>
+      </section>
+    </section>
+
+    <section id="animal-export-of-ownership-event">
+      <h3>Export and Import of Animal Event</h3>
+      <p>An event that moves an animal between organisations</p>
+      <section id="transfer-of-ownership-event-properties">
+        <h4>Properties</h4>
+        <ul>
+          <li>animal - reference to Animal</li>
+          <li>to - herd id (we should have the model for orgs and herd ids)</li>
+          <li>from - herd id</li>
+          <li>reason - transfer reason (Sale, Slaughter)</li>
+        </ul>
+      </section>
+    </section>
+
+    <section id="animal-death-event">
+      <h3>Animal Death Event</h3>
+      <p>An event that moves an animal out of a herd due to death</p>
+      <section id="anima-death-event-properties">
+        <h4>Properties</h4>
+        <ul>
+          <li>animal - reference to Animal</li>
+          <li>reason - death reason</li>
+        </ul>
+      </section>
+    </section>
+
+    <section id="location-registration-event">
+      <h3>Location Registration Event</h3>
+      <p>An event registering a new location.</p>
+      <section id="location-registration-event-properties">
+        <h4>Properties</h4>
+        <ul>
+          <li>location - reference to Location</li>
+          <li>date - date of registration</li>
+          <li>geo coordinates</li>
+          <li>reason - purpose of registration</li>
+        </ul>
+      </section>
+    </section>
+
+    <section id="location-decommissioned-event">
+      <h3>Location Decommissioned Event</h3>
+      <p>An event indicating that a location has been decommissioned.</p>
+      <section id="location-decommissioned-event-properties">
+        <h4>Properties</h4>
+        <ul>
+          <li>location - reference to Location</li>
+          <li>date - date of decommissioning</li>
+          <li>reason - reason for decommissioning</li>
+        </ul>
+      </section>
+    </section>
+
+    <section id="herd-ownership-change-event">
+      <h3>Herd Ownership Change Event</h3>
+      <p>An event that changes the ownership of a herd.</p>
+      <section id="herd-ownership-change-event-properties">
+        <h4>Properties</h4>
+        <ul>
+          <li>herd - reference to Animal Group</li>
+          <li>date - date of change</li>
+          <li>oldOwner - reference to the previous owner</li>
+          <li>newOwner - reference to the new owner</li>
+        </ul>
+      </section>
+    </section>
+
+    <section id="herd-registration-event">
+      <h3>Herd Registration Event</h3>
+      <p>An event that registers a new herd.</p>
+      <section id="herd-registration-event-properties">
+        <h4>Properties</h4>
+        <ul>
+          <li>herd - reference to Animal Group</li>
+          <li>date - date of registration</li>
+          <li>reason - purpose of registration</li>
+        </ul>
+      </section>
+    </section>
+
+    <section id="herd-deactivation-event">
+      <h3>Herd Removal Event</h3>
+      <p>An event that marks a herd a inative herd.</p>
+      <section id="herd-removal-event-properties">
+        <h4>Properties</h4>
+        <ul>
+          <li>herd - reference to Animal Group</li>
+          <li>date - date of removal</li>
+          <li>reason - reason for removal</li>
+        </ul>
+      </section>
+    </section>
+
+    <section id="herd-responsible-change-event">
+      <h3>Herd Responsible Change Event</h3>
+      <p>An event that changes the responsible organisation for a herd.</p>
+      <section id="herd-responsible-change-event-properties">
+        <h4>Properties</h4>
+        <ul>
+          <li>herd - reference to Animal Group</li>
+          <li>date - date of change</li>
+          <li>oldResponsible - reference to the previous responsible entity</li>
+          <li>newResponsible - reference to the new responsible entity</li>
+        </ul>
+      </section>
+    </section>
+
+    <section id="animal-into-location-event">
+      <h3>Animal Into Location Event</h3>
+      <p>An event that records an animal being moved into a location.</p>
+      <section id="animal-into-location-event-properties">
+        <h4>Properties</h4>
+        <ul>
+          <li>animal - reference to Animal</li>
+          <li>location - reference to Location</li>
+          <li>date - date of movement</li>
+          <li>reason - reason for movement</li>
+        </ul>
+      </section>
+    </section>
+
+  </section>
+
+  <section>
+    <h2>Animal Feeding Events</h2>
+  </section>
+
+  <section>
+    <h2>Animal Reproduction Events</h2>
+  </section>
+
+  <section>
+    <h2>Controlled Vocabularies</h2>
     <section>
-        <h2>Controlled Vocabularies</h2>
-        <section>
-            <h3>Animal Into Herd Reasons</h3>
-            <p>
-                The following are the possible reasons for an animal being transferred into a herd.
-            </p>
-            <section>
-                <h4>Reasons</h4>
-                <ul>
-                    <li>birth</li>
-                    <li>purchase</li>
-                    <li>import</li>
-                    <li>other</li>
-                </ul>
-        </section>
+      <h3>Animal Into Herd Reasons</h3>
+      <p>
+        The following are the possible reasons for an animal being transferred into a herd.
+      </p>
+      <section>
+        <h4>Reasons</h4>
+        <ul>
+          <li>birth</li>
+          <li>purchase</li>
+          <li>import</li>
+          <li>other</li>
+        </ul>
+      </section>
     </section>
 
     <section id="conformance">
@@ -454,5 +816,6 @@
         This is required for specifications that contain normative material.
       </p>
     </section>
-  </body>
+</body>
+
 </html>

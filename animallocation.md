@@ -58,17 +58,17 @@ The data model will be based on the following core entities:
    - number of dead
    - birth ease
 
-- AnimalTaggingEvent
-    - AnimalId
-    - TagId
-    - Reason (replacement, new tag)
-
 - BirthEvent
    - MotherId
    - FatherId from IME event
    - Sex of calf
    - Date of birth
    - breed composition
+
+- AnimalTaggingEvent
+    - AnimalId
+    - TagId
+    - Reason (replacement, new tag)
 
 - TransferOfOwnershipEvent
     - AnimalId
