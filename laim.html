@@ -460,7 +460,6 @@
         <ul>
           <li>id - a unique system identifier</li>
           <li>external identifiers - 1 or more identifiers for the same animal</li>
-          <li>partOfGroup - a reference to an instance of type animal group</li>
       </section>
     </section>
     <section id="animal-group-class">
@@ -483,8 +482,6 @@
       <section id="cattle-group-class-properties">
         <h4>Properties</h4>
         <ul>
-          <li>partOfCattleGroup - a reference to a cattle group to which this Cattle instance belongs. This relationship
-            class is a subClassOf <i>partOfGroup</i></li>
         </ul>
       </section>
     </section>
@@ -602,16 +599,14 @@
     <section id="animal-parturition-event">
       <h3>Animal Parturition Event</h3>
       <p>
-        An event that captures that a an animal has given birth.
+        An event that captures that an animal has given birth.
       </p>
       <section id="animal-parturition-event-properties">
         <h4>Properties</h4>
         <ul>
-          <li>animal - a reference to an instance of type animal</li>
-          <li>herd - a reference to an instance of type animal group</li>
-          <li>date - the date the animal was transferred into the herd</li>
-          <li>number of offstring - the total number of animals born</li>
-          <li>number of dead offstring - the number that died at birth / stillborn</li>
+          <li>animal - the animal giving birth. A reference to an instance of type animal</li>
+          <li>number of offspring - the total number of animals born</li>
+          <li>number of dead offspring - the number that died at birth / stillborn</li>
           <li>birth ease score - rating of how easy the birth was</li>
         </ul>
       </section>
@@ -640,10 +635,7 @@
         <h4>Properties</h4>
         <ul>
           <li>animal - reference to Animal</li>
-          <li>location - reference to Location</li>
-          <li>date - date of movement</li>
-          <li>reason - reason for movement</li>
-          <li>from - optional origin</li>
+          <li>tag - value of the tag assigned</li>
         </ul>
       </section>
     </section>
@@ -654,16 +646,16 @@
       <section id="transfer-of-ownership-event-properties">
         <h4>Properties</h4>
         <ul>
-          <li>animal - reference to Animal</li>
-          <li>to - herd id (we should have the model for orgs and herd ids)</li>
-          <li>from - herd id</li>
+          <li>animal - Animal (1..1)</li>
+          <li>to - An organisation (1..1)</li>
+          <li>from - optional An organisation</li>
           <li>reason - transfer reason (Sale, Slaughter)</li>
         </ul>
       </section>
     </section>
 
     <section id="animal-export-of-ownership-event">
-      <h3>Export and Import of Animal Event</h3>
+      <h3>Export and Import of Animal Event - Decided we didnt need this - REMOVE</h3>
       <p>An event that moves an animal between organisations</p>
       <section id="transfer-of-ownership-event-properties">
         <h4>Properties</h4>
@@ -683,7 +675,7 @@
         <h4>Properties</h4>
         <ul>
           <li>animal - reference to Animal</li>
-          <li>reason - death reason</li>
+          <li>reason - death reason (includes at birth)</li>
         </ul>
       </section>
     </section>
@@ -723,8 +715,8 @@
         <ul>
           <li>herd - reference to Animal Group</li>
           <li>date - date of change</li>
-          <li>oldOwner - reference to the previous owner</li>
-          <li>newOwner - reference to the new owner</li>
+          <li>oldOwner - Organisation - reference to the previous owner</li>
+          <li>newOwner - Organisation - reference to the new owner</li>
         </ul>
       </section>
     </section>
@@ -772,6 +764,20 @@
     <section id="animal-into-location-event">
       <h3>Animal Into Location Event</h3>
       <p>An event that records an animal being moved into a location.</p>
+      <section id="animal-into-location-event-properties">
+        <h4>Properties</h4>
+        <ul>
+          <li>animal - reference to Animal</li>
+          <li>location - reference to Location</li>
+          <li>date - date of movement</li>
+          <li>reason - reason for movement</li>
+        </ul>
+      </section>
+    </section>
+
+    <section id="animal-into-herd-event">
+      <h3>Animal Into Herd Event</h3>
+      <p>An event that records an animal being added to a herd.</p>
       <section id="animal-into-location-event-properties">
         <h4>Properties</h4>
         <ul>
